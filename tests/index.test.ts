@@ -1,10 +1,14 @@
-import { traverseEsModules, urlResolver } from 'es-module-traversal'
+import {
+    readFromUrlOrPath,
+    traverseEsModules,
+    urlResolver,
+} from 'es-module-traversal'
 import { once } from 'events'
 import { exec, spawn } from 'child_process'
 import execa from 'execa'
 import fs from 'fs-extra'
 import path from 'path'
-import { URL } from 'url'
+import url, { URL } from 'url'
 import WebSocket from 'ws'
 
 const tempDir = path.resolve('temp')
@@ -179,8 +183,39 @@ describe('hmr', () => {
                         }),
                     })
                     // console.log(traversedFiles.map((x) => x.importPath))
-                    const messages = await getWsMessages({
+                    const ws = new WebSocket(
+                        `http://localhost:${PORT}`,
                         hmrAgent,
+                    )
+                    await once(ws, 'open')
+                    await Promise.all(
+                        traversedFiles.map(
+                            async ({ resolvedImportPath, importPath }) => {
+                                const content = await readFromUrlOrPath(
+                                    resolvedImportPath,
+                                    importPath,
+                                )
+                                if (
+                                    content.includes('import.meta.hot.accept')
+                                ) {
+                                    const msg = JSON.stringify(
+                                        {
+                                            id: url.parse(resolvedImportPath)
+                                                .pathname,
+                                            type: 'hotAccept',
+                                        },
+                                        null,
+                                        4,
+                                    )
+                                    // console.log({ msg })
+                                    ws.send(msg)
+                                }
+                            },
+                        ),
+                    )
+
+                    const messages = await getWsMessages({
+                        ws,
                         doing: async () => {
                             await updateFile(
                                 path.resolve(root, testCase.path),
@@ -212,11 +247,8 @@ async function getWsMessages({
     doing,
     expectedMessagesCount = Infinity,
     timeout = 900,
-    port = PORT,
-    hmrAgent,
+    ws,
 }) {
-    const ws = new WebSocket(`http://localhost:${port}`, hmrAgent)
-    await once(ws, 'open')
     await doing()
     const messages = []
     ws.addEventListener('message', ({ data }) => {

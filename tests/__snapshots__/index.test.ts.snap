@@ -8,22 +8,22 @@ Array [
     "url": "/_dist_/file.css",
   },
   Object {
-    "bubbled": true,
+    "bubbled": false,
     "type": "update",
-    "url": "/_dist_/bridge.js",
-  },
-  Object {
-    "bubbled": true,
-    "type": "update",
-    "url": "/_dist_/main.js",
-  },
-  Object {
-    "type": "reload",
+    "url": "/_dist_/file.css.proxy.js",
   },
 ]
 `;
 
-exports[`hmr src/file.css vite 1`] = `Array []`;
+exports[`hmr src/file.css vite 1`] = `
+Array [
+  Object {
+    "changeSrcPath": "/src/file.css",
+    "path": "/src/file.css",
+    "type": "style-update",
+  },
+]
+`;
 
 exports[`hmr src/file.json snowpack 1`] = `
 Array [
@@ -31,14 +31,6 @@ Array [
     "bubbled": true,
     "type": "update",
     "url": "/_dist_/bridge.js",
-  },
-  Object {
-    "bubbled": true,
-    "type": "update",
-    "url": "/_dist_/main.js",
-  },
-  Object {
-    "type": "reload",
   },
 ]
 `;
@@ -60,19 +52,6 @@ Array [
     "type": "update",
     "url": "/_dist_/file.js",
   },
-  Object {
-    "bubbled": true,
-    "type": "update",
-    "url": "/_dist_/bridge.js",
-  },
-  Object {
-    "bubbled": true,
-    "type": "update",
-    "url": "/_dist_/main.js",
-  },
-  Object {
-    "type": "reload",
-  },
 ]
 `;
 
@@ -93,18 +72,23 @@ Array [
     "type": "update",
     "url": "/_dist_/bridge.js",
   },
-  Object {
-    "bubbled": true,
-    "type": "update",
-    "url": "/_dist_/main.js",
-  },
-  Object {
-    "type": "reload",
-  },
 ]
 `;
 
-exports[`hmr src/file.module.css vite 1`] = `Array []`;
+exports[`hmr src/file.module.css vite 1`] = `
+Array [
+  Object {
+    "changeSrcPath": "/src/file.module.css",
+    "path": "/src/bridge.jsx",
+    "type": "js-update",
+  },
+  Object {
+    "changeSrcPath": "/src/file.module.css",
+    "path": "/src/file.module.css",
+    "type": "style-update",
+  },
+]
+`;
 
 exports[`hmr src/file2.js snowpack 1`] = `
 Array [
@@ -112,19 +96,6 @@ Array [
     "bubbled": true,
     "type": "update",
     "url": "/_dist_/file.js",
-  },
-  Object {
-    "bubbled": true,
-    "type": "update",
-    "url": "/_dist_/bridge.js",
-  },
-  Object {
-    "bubbled": true,
-    "type": "update",
-    "url": "/_dist_/main.js",
-  },
-  Object {
-    "type": "reload",
   },
 ]
 `;
@@ -145,9 +116,6 @@ Array [
     "bubbled": false,
     "type": "update",
     "url": "/_dist_/main.js",
-  },
-  Object {
-    "type": "reload",
   },
 ]
 `;
