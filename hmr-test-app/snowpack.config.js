@@ -5,6 +5,7 @@ module.exports = {
     },
     devOptions: {
         open: 'none',
+        output: 'stream',
     },
     plugins: [
         '@snowpack/plugin-react-refresh', // live reloading

@@ -105,7 +105,6 @@ async function start(type) {
             function onData(data) {
                 process.stdout.write(data + '\n')
                 if (data.includes('Server started')) {
-                    console.log('complete')
                     resolve()
                 }
             }
@@ -136,7 +135,6 @@ async function start(type) {
             function onData(data) {
                 process.stdout.write(data + '\n')
                 if (data.includes('Dev server running at:')) {
-                    console.log('complete')
                     resolve()
                 }
             }
@@ -174,6 +172,7 @@ describe('hmr', () => {
                     void ({ stop, entry, hmrAgent } = await start(type))
                     const traversedFiles = await traverseEsModules({
                         entryPoints: [new URL(entry, baseUrl).toString()],
+                        onNonResolved: () => {},
                         resolver: urlResolver({
                             root,
                             baseUrl,
