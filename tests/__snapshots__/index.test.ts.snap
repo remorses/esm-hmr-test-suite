@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hmr snowpack src/file.css 1`] = `
+exports[`hmr src/file.css snowpack 1`] = `
 Array [
   Object {
     "bubbled": false,
@@ -18,7 +18,9 @@ Array [
 ]
 `;
 
-exports[`hmr snowpack src/file.json 1`] = `
+exports[`hmr src/file.css vite 1`] = `Array []`;
+
+exports[`hmr src/file.json snowpack 1`] = `
 Array [
   Object {
     "bubbled": true,
@@ -31,7 +33,17 @@ Array [
 ]
 `;
 
-exports[`hmr snowpack src/file.jsx 1`] = `
+exports[`hmr src/file.json vite 1`] = `
+Array [
+  Object {
+    "changeSrcPath": "/src/file.json",
+    "path": "/src/bridge.jsx",
+    "type": "js-update",
+  },
+]
+`;
+
+exports[`hmr src/file.jsx snowpack 1`] = `
 Array [
   Object {
     "bubbled": false,
@@ -49,7 +61,17 @@ Array [
 ]
 `;
 
-exports[`hmr snowpack src/file.module.css 1`] = `
+exports[`hmr src/file.jsx vite 1`] = `
+Array [
+  Object {
+    "changeSrcPath": "/src/file.jsx",
+    "path": "/src/bridge.jsx",
+    "type": "js-update",
+  },
+]
+`;
+
+exports[`hmr src/file.module.css snowpack 1`] = `
 Array [
   Object {
     "bubbled": true,
@@ -62,7 +84,9 @@ Array [
 ]
 `;
 
-exports[`hmr snowpack src/file2.js 1`] = `
+exports[`hmr src/file.module.css vite 1`] = `Array []`;
+
+exports[`hmr src/file2.js snowpack 1`] = `
 Array [
   Object {
     "bubbled": true,
@@ -80,39 +104,7 @@ Array [
 ]
 `;
 
-exports[`hmr snowpack src/main.jsx 1`] = `
-Array [
-  Object {
-    "type": "reload",
-  },
-]
-`;
-
-exports[`hmr vite src/file.css 1`] = `Array []`;
-
-exports[`hmr vite src/file.json 1`] = `
-Array [
-  Object {
-    "changeSrcPath": "/src/file.json",
-    "path": "/src/bridge.jsx",
-    "type": "js-update",
-  },
-]
-`;
-
-exports[`hmr vite src/file.jsx 1`] = `
-Array [
-  Object {
-    "changeSrcPath": "/src/file.jsx",
-    "path": "/src/bridge.jsx",
-    "type": "js-update",
-  },
-]
-`;
-
-exports[`hmr vite src/file.module.css 1`] = `Array []`;
-
-exports[`hmr vite src/file2.js 1`] = `
+exports[`hmr src/file2.js vite 1`] = `
 Array [
   Object {
     "changeSrcPath": "/src/file2.js",
@@ -122,7 +114,15 @@ Array [
 ]
 `;
 
-exports[`hmr vite src/main.jsx 1`] = `
+exports[`hmr src/main.jsx snowpack 1`] = `
+Array [
+  Object {
+    "type": "reload",
+  },
+]
+`;
+
+exports[`hmr src/main.jsx vite 1`] = `
 Array [
   Object {
     "path": "/src/main.jsx",

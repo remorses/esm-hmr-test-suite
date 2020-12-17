@@ -169,7 +169,7 @@ describe('hmr', () => {
         let hmrAgent
 
         for (let testCase of testCases) {
-            test(type + ' ' + (testCase.name || testCase.path), async () => {
+            test((testCase.name || testCase.path) + ' ' + type, async () => {
                 try {
                     void ({ stop, entry, hmrAgent } = await start(type))
                     const traversedFiles = await traverseEsModules({
@@ -212,7 +212,7 @@ async function updateFile(compPath, replacer) {
 async function getWsMessages({
     doing,
     expectedMessagesCount = Infinity,
-    timeout = 800,
+    timeout = 900,
     port = PORT,
     hmrAgent,
 }) {
