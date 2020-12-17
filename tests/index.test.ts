@@ -8,7 +8,7 @@ import { URL } from 'url'
 import WebSocket from 'ws'
 
 const tempDir = path.resolve('temp')
-const fixtureDir = path.resolve('app')
+const fixtureDir = path.resolve('hmr-test-app')
 const PORT = 4000
 
 jest.setTimeout(100000)
