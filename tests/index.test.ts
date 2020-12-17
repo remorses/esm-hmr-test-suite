@@ -90,6 +90,37 @@ async function start(type) {
                 hmrAgent: 'esm-hmr',
             }
         }
+        case 'vite': {
+            let resolve
+            let complete = new Promise((r) => {
+                resolve = r
+            })
+            const p = spawn(`yarn vite serve --port ${PORT}`, {
+                cwd: tempDir,
+                stdio: 'pipe',
+                env: {
+                    ...process.env,
+                    NODE_ENV: 'development',
+                },
+                shell: true,
+            })
+            function onData(data) {
+                process.stdout.write(data + '\n')
+                if (data.includes('Dev server running at:')) {
+                    console.log('complete')
+                    resolve()
+                }
+            }
+            p.stderr.on('data', onData)
+            p.stdout.on('data', onData)
+            await complete
+            await sleep(400)
+            return {
+                stop: () => p.kill(),
+                entry: '/vite/index.html',
+                hmrAgent: 'vite-hmr',
+            }
+        }
         default: {
             throw new Error(`${type} not handled`)
         }
@@ -101,40 +132,39 @@ describe('hmr', () => {
 
     const root = tempDir
 
-    const types = ['snowpack']
+    const types = ['snowpack', 'vite']
 
     for (let type of types) {
         let stop
         let entry
         let hmrAgent
-        beforeAll(async () => {
-            void ({ stop, entry, hmrAgent } = await start(type))
-        })
-        afterAll(() => {
-            stop && stop()
-        })
 
         for (let testCase of testCases) {
             test(type + ' ' + (testCase.name || testCase.path), async () => {
-                const traversedFiles = await traverseEsModules({
-                    entryPoints: [new URL(entry, baseUrl).toString()],
-                    resolver: urlResolver({
-                        root,
-                        baseUrl,
-                    }),
-                })
-                // console.log(traversedFiles.map((x) => x.importPath))
-                const messages = await getWsMessages({
-                    hmrAgent,
-                    doing: async () => {
-                        await updateFile(
-                            path.resolve(root, testCase.path),
-                            testCase.replacer,
-                        )
-                    },
-                    expectedMessagesCount: testCase.expectedMessagesCount,
-                })
-                expect(messages.map(normalizeHmrMessage)).toMatchSnapshot()
+                try {
+                    void ({ stop, entry, hmrAgent } = await start(type))
+                    const traversedFiles = await traverseEsModules({
+                        entryPoints: [new URL(entry, baseUrl).toString()],
+                        resolver: urlResolver({
+                            root,
+                            baseUrl,
+                        }),
+                    })
+                    // console.log(traversedFiles.map((x) => x.importPath))
+                    const messages = await getWsMessages({
+                        hmrAgent,
+                        doing: async () => {
+                            await updateFile(
+                                path.resolve(root, testCase.path),
+                                testCase.replacer,
+                            )
+                        },
+                        expectedMessagesCount: testCase.expectedMessagesCount,
+                    })
+                    expect(messages.map(normalizeHmrMessage)).toMatchSnapshot()
+                } finally {
+                    stop && stop()
+                }
             })
         }
     }

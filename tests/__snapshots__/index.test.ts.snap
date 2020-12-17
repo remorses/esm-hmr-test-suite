@@ -7,3 +7,12 @@ Array [
   },
 ]
 `;
+
+exports[`hmr vite src/main.jsx 1`] = `
+Array [
+  Object {
+    "path": "/src/main.jsx",
+    "type": "full-reload",
+  },
+]
+`;
