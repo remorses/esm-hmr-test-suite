@@ -1,3 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`playground hmr src/main.jsx 1`] = `Array []`;
+exports[`hmr snowpack src/main.jsx 1`] = `
+Array [
+  Object {
+    "type": "reload",
+  },
+]
+`;

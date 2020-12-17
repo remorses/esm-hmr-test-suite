@@ -56,79 +56,87 @@ afterAll(async () => {
     } catch (e) {}
 })
 
-async function start() {
+async function start(type) {
     console.info('starting')
-    let resolve
-    let complete = new Promise((r) => {
-        resolve = r
-    })
-    const p = spawn(`yarn snowpack dev --port ${PORT}`, {
-        cwd: tempDir,
-        stdio: 'pipe',
-        env: {
-            ...process.env,
-            NODE_ENV: 'development',
-        },
-        shell: true,
-    })
-    function onData(data) {
-        process.stdout.write(data + '\n')
-        if (data.includes('install complete!')) {
-            console.log('complete')
-            resolve()
+    switch (type) {
+        case 'snowpack': {
+            let resolve
+            let complete = new Promise((r) => {
+                resolve = r
+            })
+            const p = spawn(`yarn snowpack dev --port ${PORT}`, {
+                cwd: tempDir,
+                stdio: 'pipe',
+                env: {
+                    ...process.env,
+                    NODE_ENV: 'development',
+                },
+                shell: true,
+            })
+            function onData(data) {
+                process.stdout.write(data + '\n')
+                if (data.includes('install complete!')) {
+                    console.log('complete')
+                    resolve()
+                }
+            }
+            p.stderr.on('data', onData)
+            p.stdout.on('data', onData)
+            await complete
+            await sleep(300)
+            return {
+                stop: () => p.kill(),
+                entry: '/snowpack/index.html',
+                hmrAgent: 'esm-hmr',
+            }
         }
-    }
-    p.stderr.on('data', onData)
-    p.stdout.on('data', onData)
-    await complete
-    await sleep(300)
-    return {
-        stop: () => p.kill(),
-        entry: '/snowpack/index.html',
-        hmrAgent: 'esm-hmr',
+        default: {
+            throw new Error(`${type} not handled`)
+        }
     }
 }
 
-describe('playground hmr', () => {
+describe('hmr', () => {
     const baseUrl = `http://localhost:${PORT}`
 
     const root = tempDir
 
-    let stop
-    let entry
-    let hmrAgent
-    beforeAll(async () => {
-        void ({ stop, entry, hmrAgent } = await start())
+    const types = ['snowpack']
 
-        // console.log('sleeping')
-        // await sleep(1000000 * 1000)
-    })
-    afterAll(() => {
-        stop && stop()
-    })
-
-    for (let testCase of testCases) {
-        test(testCase.name || testCase.path, async () => {
-            const traversedFiles = await traverseEsModules({
-                entryPoints: [new URL(entry, baseUrl).toString()],
-                resolver: urlResolver({
-                    root,
-                    baseUrl,
-                }),
-            })
-            // console.log(traversedFiles.map((x) => x.importPath))
-            const messages = await getWsMessages({
-                hmrAgent,
-                doing: async () => {
-                    await updateFile(
-                        path.resolve(root, testCase.path),
-                        testCase.replacer,
-                    )
-                },
-                expectedMessagesCount: testCase.expectedMessagesCount,
-            })
-            expect(messages.map(normalizeHmrMessage)).toMatchSnapshot()
+    for (let type of types) {
+        let stop
+        let entry
+        let hmrAgent
+        beforeAll(async () => {
+            void ({ stop, entry, hmrAgent } = await start(type))
         })
+        afterAll(() => {
+            stop && stop()
+        })
+
+        for (let testCase of testCases) {
+            test(type + ' ' + (testCase.name || testCase.path), async () => {
+                const traversedFiles = await traverseEsModules({
+                    entryPoints: [new URL(entry, baseUrl).toString()],
+                    resolver: urlResolver({
+                        root,
+                        baseUrl,
+                    }),
+                })
+                // console.log(traversedFiles.map((x) => x.importPath))
+                const messages = await getWsMessages({
+                    hmrAgent,
+                    doing: async () => {
+                        await updateFile(
+                            path.resolve(root, testCase.path),
+                            testCase.replacer,
+                        )
+                    },
+                    expectedMessagesCount: testCase.expectedMessagesCount,
+                })
+                expect(messages.map(normalizeHmrMessage)).toMatchSnapshot()
+            })
+        }
     }
 })
 
