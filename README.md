@@ -9,4 +9,6 @@
     <br/>
 </div>
 
+Analyzes the HMR messages sent after a file change
+
 Result are in snapshot tests [here](./tests/__snapshots__/index.test.ts.snap)
