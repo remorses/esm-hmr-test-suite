@@ -1,9 +1,6 @@
-
 import React from 'react'
-import './file2'
+import x from './file2'
 
 export const Comp = () => {
-    return <div>xxx</div>
+    return <div>xxx{x}</div>
 }
-
-export const x = 1

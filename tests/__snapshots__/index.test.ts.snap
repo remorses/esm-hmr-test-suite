@@ -80,7 +80,7 @@ exports[`hmr src/file.jsx vite 1`] = `
 Array [
   Object {
     "changeSrcPath": "/src/file.jsx",
-    "path": "/src/bridge.jsx",
+    "path": "/src/file.jsx",
     "type": "js-update",
   },
 ]
@@ -133,7 +133,7 @@ exports[`hmr src/file2.js vite 1`] = `
 Array [
   Object {
     "changeSrcPath": "/src/file2.js",
-    "path": "/src/bridge.jsx",
+    "path": "/src/file.jsx",
     "type": "js-update",
   },
 ]
