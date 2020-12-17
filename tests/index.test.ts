@@ -63,6 +63,12 @@ const testCases: TestCase[] = [
             return content + '\n\n'
         },
     },
+    {
+        path: 'src/imported-many-times.js',
+        replacer: (content) => {
+            return content + '\n\n'
+        },
+    },
 ]
 
 beforeAll(async () => {
@@ -246,7 +252,7 @@ async function updateFile(compPath, replacer) {
 async function getWsMessages({
     doing,
     expectedMessagesCount = Infinity,
-    timeout = 900,
+    timeout = 600,
     ws,
 }) {
     await doing()

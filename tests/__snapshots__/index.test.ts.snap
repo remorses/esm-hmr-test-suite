@@ -110,6 +110,36 @@ Array [
 ]
 `;
 
+exports[`hmr src/imported-many-times.js snowpack 1`] = `
+Array [
+  Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/main.js",
+  },
+  Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/file.js",
+  },
+]
+`;
+
+exports[`hmr src/imported-many-times.js vite 1`] = `
+Array [
+  Object {
+    "changeSrcPath": "/src/imported-many-times.js",
+    "path": "/src/main.jsx",
+    "type": "js-update",
+  },
+  Object {
+    "changeSrcPath": "/src/imported-many-times.js",
+    "path": "/src/file.jsx",
+    "type": "js-update",
+  },
+]
+`;
+
 exports[`hmr src/main.jsx snowpack 1`] = `
 Array [
   Object {
