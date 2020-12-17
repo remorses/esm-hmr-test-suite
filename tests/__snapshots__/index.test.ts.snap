@@ -1,9 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hmr snowpack src/main.jsx 1`] = `
+exports[`hmr vite src/file.css 1`] = `Array []`;
+
+exports[`hmr vite src/file.json 1`] = `
 Array [
   Object {
-    "type": "reload",
+    "changeSrcPath": "/src/file.json",
+    "path": "/src/bridge.jsx",
+    "type": "js-update",
+  },
+]
+`;
+
+exports[`hmr vite src/file.jsx 1`] = `
+Array [
+  Object {
+    "changeSrcPath": "/src/file.jsx",
+    "path": "/src/bridge.jsx",
+    "type": "js-update",
+  },
+]
+`;
+
+exports[`hmr vite src/file.module.css 1`] = `Array []`;
+
+exports[`hmr vite src/file2.js 1`] = `
+Array [
+  Object {
+    "changeSrcPath": "/src/file2.js",
+    "path": "/src/bridge.jsx",
+    "type": "js-update",
   },
 ]
 `;

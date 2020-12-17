@@ -25,9 +25,38 @@ process.env.NODE_ENV = 'development'
 const testCases: TestCase[] = [
     {
         path: 'src/main.jsx',
-        expectedMessagesCount: 1,
         replacer: (content) => {
-            return content.replace('</script>', '\n</script>')
+            return content + '\n\n'
+        },
+    },
+    {
+        path: 'src/file.jsx',
+        replacer: (content) => {
+            return content + '\n\n'
+        },
+    },
+    {
+        path: 'src/file.css',
+        replacer: (content) => {
+            return content + '\n\n'
+        },
+    },
+    {
+        path: 'src/file.module.css',
+        replacer: (content) => {
+            return content + '\n\n'
+        },
+    },
+    {
+        path: 'src/file.json',
+        replacer: (content) => {
+            return content + '\n\n'
+        },
+    },
+    {
+        path: 'src/file2.js',
+        replacer: (content) => {
+            return content + '\n\n'
         },
     },
 ]
@@ -85,7 +114,7 @@ async function start(type) {
             await complete
             await sleep(300)
             return {
-                stop: () => p.kill(),
+                stop: () => p.kill('SIGTERM'),
                 entry: '/snowpack/index.html',
                 hmrAgent: 'esm-hmr',
             }
@@ -116,7 +145,7 @@ async function start(type) {
             await complete
             await sleep(400)
             return {
-                stop: () => p.kill(),
+                stop: () => p.kill('SIGTERM'),
                 entry: '/vite/index.html',
                 hmrAgent: 'vite-hmr',
             }
@@ -132,7 +161,7 @@ describe('hmr', () => {
 
     const root = tempDir
 
-    const types = ['snowpack', 'vite']
+    const types = ['vite', ]
 
     for (let type of types) {
         let stop
@@ -164,6 +193,7 @@ describe('hmr', () => {
                     expect(messages.map(normalizeHmrMessage)).toMatchSnapshot()
                 } finally {
                     stop && stop()
+                    await sleep(200)
                 }
             })
         }
@@ -182,7 +212,7 @@ async function updateFile(compPath, replacer) {
 async function getWsMessages({
     doing,
     expectedMessagesCount = Infinity,
-    timeout = 500,
+    timeout = 800,
     port = PORT,
     hmrAgent,
 }) {
