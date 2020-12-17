@@ -13,6 +13,11 @@ Array [
     "url": "/_dist_/bridge.js",
   },
   Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/main.js",
+  },
+  Object {
     "type": "reload",
   },
 ]
@@ -26,6 +31,11 @@ Array [
     "bubbled": true,
     "type": "update",
     "url": "/_dist_/bridge.js",
+  },
+  Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/main.js",
   },
   Object {
     "type": "reload",
@@ -56,6 +66,11 @@ Array [
     "url": "/_dist_/bridge.js",
   },
   Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/main.js",
+  },
+  Object {
     "type": "reload",
   },
 ]
@@ -79,6 +94,11 @@ Array [
     "url": "/_dist_/bridge.js",
   },
   Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/main.js",
+  },
+  Object {
     "type": "reload",
   },
 ]
@@ -99,6 +119,11 @@ Array [
     "url": "/_dist_/bridge.js",
   },
   Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/main.js",
+  },
+  Object {
     "type": "reload",
   },
 ]
@@ -117,6 +142,11 @@ Array [
 exports[`hmr src/main.jsx snowpack 1`] = `
 Array [
   Object {
+    "bubbled": false,
+    "type": "update",
+    "url": "/_dist_/main.js",
+  },
+  Object {
     "type": "reload",
   },
 ]
@@ -125,8 +155,9 @@ Array [
 exports[`hmr src/main.jsx vite 1`] = `
 Array [
   Object {
+    "changeSrcPath": "/src/main.jsx",
     "path": "/src/main.jsx",
-    "type": "full-reload",
+    "type": "js-update",
   },
 ]
 `;
