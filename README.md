@@ -3,8 +3,10 @@
     <br/>
     <img src='' width='320px'>
     <br/>
-    <h3>Template</h3>
-    <p>project under heavy development</p>
+    <h3>ESM HMR comparison</h3>
+    <p></p>
     <br/>
     <br/>
 </div>
+
+Result are in snapshot tests [here](./tests/__snapshots__/index.test.ts.snap)
