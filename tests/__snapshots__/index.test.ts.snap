@@ -1,5 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`hmr snowpack src/file.css 1`] = `
+Array [
+  Object {
+    "bubbled": false,
+    "type": "update",
+    "url": "/_dist_/file.css",
+  },
+  Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/bridge.js",
+  },
+  Object {
+    "type": "reload",
+  },
+]
+`;
+
+exports[`hmr snowpack src/file.json 1`] = `
+Array [
+  Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/bridge.js",
+  },
+  Object {
+    "type": "reload",
+  },
+]
+`;
+
+exports[`hmr snowpack src/file.jsx 1`] = `
+Array [
+  Object {
+    "bubbled": false,
+    "type": "update",
+    "url": "/_dist_/file.js",
+  },
+  Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/bridge.js",
+  },
+  Object {
+    "type": "reload",
+  },
+]
+`;
+
+exports[`hmr snowpack src/file.module.css 1`] = `
+Array [
+  Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/bridge.js",
+  },
+  Object {
+    "type": "reload",
+  },
+]
+`;
+
+exports[`hmr snowpack src/file2.js 1`] = `
+Array [
+  Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/file.js",
+  },
+  Object {
+    "bubbled": true,
+    "type": "update",
+    "url": "/_dist_/bridge.js",
+  },
+  Object {
+    "type": "reload",
+  },
+]
+`;
+
+exports[`hmr snowpack src/main.jsx 1`] = `
+Array [
+  Object {
+    "type": "reload",
+  },
+]
+`;
+
 exports[`hmr vite src/file.css 1`] = `Array []`;
 
 exports[`hmr vite src/file.json 1`] = `

@@ -104,7 +104,7 @@ async function start(type) {
             })
             function onData(data) {
                 process.stdout.write(data + '\n')
-                if (data.includes('install complete!')) {
+                if (data.includes('Server started')) {
                     console.log('complete')
                     resolve()
                 }
@@ -161,7 +161,7 @@ describe('hmr', () => {
 
     const root = tempDir
 
-    const types = ['vite', ]
+    const types = ['snowpack', 'vite']
 
     for (let type of types) {
         let stop
@@ -193,7 +193,7 @@ describe('hmr', () => {
                     expect(messages.map(normalizeHmrMessage)).toMatchSnapshot()
                 } finally {
                     stop && stop()
-                    await sleep(200)
+                    await sleep(300)
                 }
             })
         }
