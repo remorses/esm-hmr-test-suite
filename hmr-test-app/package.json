@@ -20,7 +20,9 @@
         "es-module-traversal": "^0.0.46",
         "snowpack": "^2.18.4",
         "vite": "^1.0.0-rc.13",
-        "vite-plugin-react": "^4.0.1"
+        "vite-plugin-react": "^4.0.1",
+        "execa": "^5.0.0",
+        "ws": "^7.4.1"
     },
     "dependencies": {
         "react": "^17.0.1",

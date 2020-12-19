@@ -9,7 +9,6 @@
     "workspaces": {
         "packages": [
             "hmr-test-app",
-            "tests",
             "temp"
         ]
     },
