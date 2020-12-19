@@ -20,7 +20,6 @@ jest.setTimeout(100000)
 type TestCase = {
     name?: string
     path: string
-    expectedMessagesCount?: number
     replacer: (content: string) => string
 }
 
@@ -228,7 +227,6 @@ describe('hmr', () => {
                                 testCase.replacer,
                             )
                         },
-                        expectedMessagesCount: testCase.expectedMessagesCount,
                     })
                     expect(messages.map(normalizeHmrMessage)).toMatchSnapshot()
                 } finally {
@@ -249,12 +247,7 @@ async function updateFile(compPath, replacer) {
     }
 }
 
-async function getWsMessages({
-    doing,
-    expectedMessagesCount = Infinity,
-    timeout = 600,
-    ws,
-}) {
+async function getWsMessages({ doing, timeout = 2000, ws }) {
     await doing()
     const messages = []
     ws.addEventListener('message', ({ data }) => {
@@ -266,7 +259,7 @@ async function getWsMessages({
         return messages.push(payload)
     })
     await Promise.race([
-        waitUntil(() => messages.length === expectedMessagesCount),
+        waitUntilCountStabilizes(() => messages.length),
         sleep(timeout),
     ])
     ws.close()
@@ -276,9 +269,15 @@ async function getWsMessages({
 
 const sleep = (n) => new Promise((r) => setTimeout(r, n))
 
-async function waitUntil(check) {
-    while (!check()) {
+async function waitUntilCountStabilizes(count, releaseTime = 50) {
+    let lastCount = 0
+    while (!lastCount) {
         await sleep(50)
+        lastCount = count()
+    }
+    await sleep(releaseTime)
+    if (count() !== lastCount) {
+        return await waitUntilCountStabilizes(count, releaseTime)
     }
 }
 
