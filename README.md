@@ -1,7 +1,6 @@
 <div align='center'>
     <br/>
     <br/>
-    <img src='' width='320px'>
     <br/>
     <h3>ESM HMR comparison</h3>
     <p></p>
